@@ -1,0 +1,12 @@
+html {
+  font-size: 62.5%;
+  height: -webkit-fill-available;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
