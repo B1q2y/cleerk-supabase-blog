@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { fetchUserProfile } from "@/lib/fetch-profile";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
-import { Newspaper, User } from "lucide-react";
+import { CalendarDays, Newspaper, User } from "lucide-react";
 import { format } from "date-fns";
-import Image from "next/image";
 
 export default function HomePage() {
   const { user, isSignedIn } = useUser();
@@ -25,6 +25,11 @@ export default function HomePage() {
   useEffect(() => {
     const handleUser = async () => {
       if (isSignedIn && user) {
+        const now = new Date().toISOString();
+        await supabase
+          .from("profiles")
+          .update({ last_login_at: now })
+          .eq("id", user.id);
         const profile = await fetchUserProfile(user.id);
         setProfile(profile);
       } else if (!isSignedIn) {
@@ -39,12 +44,10 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex flex-col items-center justify-center p-6">
       <div className="bg-white shadow-xl rounded-3xl p-8 max-w-xl w-full text-center">
-        <Image
+        <img
           src={profile.avatar_url}
           alt="user avatar"
-          width={96}
-          height={96}
-          className="rounded-full mx-auto shadow-lg border-2 border-white -mt-16"
+          className="w-24 h-24 rounded-full mx-auto shadow-lg border-2 border-white -mt-16"
         />
         <h1 className="text-3xl font-extrabold mt-6 tracking-tight">
           ようこそ、{profile.nickname || profile.username} さん！
