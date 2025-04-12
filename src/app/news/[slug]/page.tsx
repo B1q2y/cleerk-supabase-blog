@@ -4,26 +4,25 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 
-type PostPageProps = {
+type PostProps = {
   params: {
     slug: string;
   };
 };
 
-// 静的生成のパス指定
 export async function generateStaticParams() {
   const files = fs.readdirSync(path.join(process.cwd(), "data/news"));
   return files.map((filename) => ({
-    slug: filename.replace(/\\.md$/, ""),
+    slug: filename.replace(/\.md$/, ""),
   }));
 }
 
-export default function PostPage({ params }: PostPageProps) {
+export default function PostPage({ params }: PostProps) {
   const { slug } = params;
   const fullPath = path.join(process.cwd(), "data/news", `${slug}.md`);
 
   if (!fs.existsSync(fullPath)) {
-    notFound();
+    return notFound();
   }
 
   const file = fs.readFileSync(fullPath, "utf-8");
