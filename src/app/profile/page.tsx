@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUserProfile } from "@/lib/fetch-profile";
-import { supabase } from "@/lib/supabase";
 import Link from "next/link";
+import { Pencil } from "lucide-react";
 import { format } from "date-fns";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { user, isSignedIn } = useUser();
@@ -35,10 +36,12 @@ export default function ProfilePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center p-6">
       <div className="bg-white shadow-xl rounded-3xl p-8 max-w-xl w-full text-center">
-        <img
+        <Image
           src={profile.avatar_url}
           alt="user avatar"
-          className="w-24 h-24 rounded-full mx-auto shadow-md border border-white"
+          width={96}
+          height={96}
+          className="rounded-full mx-auto shadow-md border border-white"
         />
         <h1 className="text-2xl font-bold mt-4">
           {profile.nickname || profile.username} さん
@@ -65,7 +68,7 @@ export default function ProfilePage() {
             href="/profile/edit"
             className="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full transition"
           >
-            プロフィールを編集
+            <Pencil size={16} /> プロフィールを編集
           </Link>
 
           <Link
