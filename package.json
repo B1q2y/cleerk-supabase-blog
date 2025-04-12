@@ -20,7 +20,8 @@
     "react-dom": "^19.0.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "sass": "^1.86.3"
+    "sass": "^1.86.3",
+    "webpack": "^5.99.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
