@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.14.3",
+    "@supabase/supabase-js": "^2.49.4",
+    "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.487.0",
+    "marked": "^15.0.8",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
